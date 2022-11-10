@@ -29,6 +29,15 @@ void parse()
     index++;
   }
   file.close();
+  int DalcIndex = 26;
+  int WalcIndex = 27;
+  int GradeIndex = 32;
   for (int currentRow = 0; currentRow < row; currentRow++)
   {
+    Student student;
+    student.setDalc(stoi(data[row][DalcIndex]));
+    student.setDalc(stoi(data[row][WalcIndex]));
+    student.setDalc(stoi(data[row][GradeIndex]));
+    students.push_back(student);
   }
+}
