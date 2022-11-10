@@ -4,9 +4,8 @@
 #include "student.cpp"
 #include "iomanip"
 
-void parse()
+void parse(std::fstream &file)
 {
-  std::fstream file("student-mat.csv");
   std::vector<Student> students;
   std::string line;
   int row = 0;
@@ -40,4 +39,11 @@ void parse()
     student.setDalc(stoi(data[row][GradeIndex]));
     students.push_back(student);
   }
+}
+
+int main()
+{
+  std::fstream file1("student-mat.csv");
+  std::fstream file2("student-por.csv");
+  parse(file1);
 }
