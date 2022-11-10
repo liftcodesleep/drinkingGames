@@ -18,4 +18,16 @@ public:
   {
     return this->Grade;
   }
+  void setDalc(int Dalc)
+  {
+    this->Dalc = Dalc;
+  }
+  void setWalc(int Walc)
+  {
+    this->Walc = Walc;
+  }
+  void setGrade(int Walc)
+  {
+    this->Grade = Grade;
+  }
 };
