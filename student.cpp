@@ -26,7 +26,7 @@ public:
   {
     this->Walc = Walc;
   }
-  void setGrade(int Walc)
+  void setGrade(int Grade)
   {
     this->Grade = Grade;
   }
