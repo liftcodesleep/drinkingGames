@@ -5,9 +5,8 @@
 #include "iomanip"
 #include "iostream"
 
-std::vector<Student> parse()
+std::vector<Student> parse(std::ifstream &file)
 {
-  std::ifstream file("archive/student-mat.csv");
   std::vector<Student> students;
   std::string line;
   int row = 0;
@@ -38,9 +37,10 @@ std::vector<Student> parse()
   {
     Student student;
     // core dump
-    student.setDalc(stoi(data[row][DalcIndex]));
-    student.setDalc(stoi(data[row][WalcIndex]));
-    student.setDalc(stoi(data[row][GradeIndex]));
+    std::cout << data[currentRow][GradeIndex] << std::endl;
+    // student.setDalc(data[currentRow][DalcIndex]);
+    // student.setWalc(stoi(data[row][WalcIndex]));
+    // student.setGrade(stoi(data[row][GradeIndex]));
     students.push_back(student);
   }
   return students;
@@ -50,13 +50,14 @@ void getDistro(std::vector<Student> students)
 {
   for (auto student : students)
   {
-    std::cout << "Student's daily alcohol rate: " << student.getDalc() << std::endl;
+    // std::cout << "Student's daily alcohol rate: " << student.getDalc() << std::endl;
   }
 }
 
 int main()
 {
-  // std::fstream file2("student-por.csv");
-  getDistro(parse());
-  // getDistro(parse());
+  std::ifstream file1("archive/student-mat.csv");
+  // std::ifstream file2("archive/student-por.csv");
+  getDistro(parse(file1));
+  // getDistro(parse(file2));
 }

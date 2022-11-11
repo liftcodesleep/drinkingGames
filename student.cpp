@@ -1,9 +1,9 @@
 class Student
 {
 private:
-  int Dalc;
-  int Walc;
-  int Grade;
+  int Dalc = 0;
+  int Walc = 0;
+  int Grade = 0;
 
 public:
   int getDalc()
