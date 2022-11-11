@@ -29,14 +29,15 @@ std::vector<Student> parse(std::ifstream &file)
     }
     index++;
   }
+
   file.close();
+
   int DalcIndex = 26;
   int WalcIndex = 27;
   int GradeIndex = 32;
   for (int currentRow = 1; currentRow < row; currentRow++)
   {
     Student student;
-    // std::cout << data[currentRow][GradeIndex] << std::endl;
     student.setDalc(stoi(data[currentRow][DalcIndex]));
     student.setWalc(stoi(data[currentRow][WalcIndex]));
     student.setGrade(stoi(data[currentRow][GradeIndex]));
