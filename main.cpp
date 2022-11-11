@@ -3,17 +3,20 @@
 #include "sstream"
 #include "student.cpp"
 #include "iomanip"
+#include "iostream"
 
-std::vector<Student> parse(std::fstream &file)
+std::vector<Student> parse()
 {
+  std::ifstream file("archive/student-mat.csv");
   std::vector<Student> students;
   std::string line;
   int row = 0;
   int index = 0;
-  while (getline(file, line))
+  while (std::getline(file, line))
   {
     row++;
   }
+
   std::vector<std::string> data[row];
   file.clear();
   file.seekg(file.beg);
@@ -34,6 +37,7 @@ std::vector<Student> parse(std::fstream &file)
   for (int currentRow = 0; currentRow < row; currentRow++)
   {
     Student student;
+    // core dump
     student.setDalc(stoi(data[row][DalcIndex]));
     student.setDalc(stoi(data[row][WalcIndex]));
     student.setDalc(stoi(data[row][GradeIndex]));
@@ -44,16 +48,15 @@ std::vector<Student> parse(std::fstream &file)
 
 void getDistro(std::vector<Student> students)
 {
-
   for (auto student : students)
   {
+    std::cout << "Student's daily alcohol rate: " << student.getDalc() << std::endl;
   }
 }
 
 int main()
 {
-  std::fstream file1("student-mat.csv");
-  std::fstream file2("student-por.csv");
-  getDistro(parse(file1));
-  getDistro(parse(file2));
+  // std::fstream file2("student-por.csv");
+  getDistro(parse());
+  // getDistro(parse());
 }
