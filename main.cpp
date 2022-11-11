@@ -51,16 +51,14 @@ void getDistro(std::vector<Student> students)
   for (auto student : students)
   {
     studentNum++;
-    std::cout << "Student " << studentNum << "'s daily alcohol rate: " << student.getDalc() << std::endl
-              << "Student " << studentNum << "'s weekend alcohol rate: " << student.getWalc() << std::endl
-              << "Student " << studentNum << "'s final grade: " << student.getGrade() << std::endl;
+    std::cout << "Student " << studentNum << "'s daily alcohol rate: " << student.getDalc() << ", weekend alcohol rate: " << student.getWalc() << ", final grade: " << student.getGrade() << std::endl;
   }
 }
 
 int main()
 {
   std::ifstream file1("archive/student-mat.csv");
-  // std::ifstream file2("archive/student-por.csv");
+  std::ifstream file2("archive/student-por.csv");
   getDistro(parse(file1));
-  // getDistro(parse(file2));
+  getDistro(parse(file2));
 }
