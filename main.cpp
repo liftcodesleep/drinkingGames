@@ -49,7 +49,7 @@ std::vector<Student> parse(std::ifstream &file)
   return students;
 }
 
-void getDistro(std::vector<Student> students)
+void debugPrint(std::vector<Student> students)
 {
   int studentNum = 0;
   for (auto student : students)
@@ -63,6 +63,6 @@ int main()
 {
   std::ifstream file1("archive/student-mat.csv");
   std::ifstream file2("archive/student-por.csv");
-  getDistro(parse(file1));
-  getDistro(parse(file2));
+  debugPrint(parse(file1));
+  debugPrint(parse(file2));
 }
