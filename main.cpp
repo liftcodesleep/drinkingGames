@@ -34,13 +34,16 @@ std::vector<Student> parse(std::ifstream &file)
 
   int DalcIndex = 26;
   int WalcIndex = 27;
+  int AttendanceIndex = 29;
   int GradeIndex = 32;
   for (int currentRow = 1; currentRow < row; currentRow++)
   {
     Student student;
     student.setDalc(stoi(data[currentRow][DalcIndex]));
     student.setWalc(stoi(data[currentRow][WalcIndex]));
+    student.setAttendance(stoi(data[currentRow][AttendanceIndex]));
     student.setGrade(stoi(data[currentRow][GradeIndex]));
+
     students.push_back(student);
   }
   return students;
@@ -52,7 +55,7 @@ void getDistro(std::vector<Student> students)
   for (auto student : students)
   {
     studentNum++;
-    std::cout << "Student " << studentNum << "'s daily alcohol rate: " << student.getDalc() << ", weekend alcohol rate: " << student.getWalc() << ", final grade: " << student.getGrade() << std::endl;
+    std::cout << "Student " << studentNum << "'s daily alcohol rate: " << student.getDalc() << ", weekend alcohol rate: " << student.getWalc() << ", Attendance Score: " << student.getAttendance() << ", final grade: " << student.getGrade() << std::endl;
   }
 }
 

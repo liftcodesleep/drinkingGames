@@ -3,6 +3,7 @@ class Student
 private:
   int Dalc = 0;
   int Walc = 0;
+  int Attendance = 0;
   int Grade = 0;
 
 public:
@@ -13,6 +14,10 @@ public:
   int getWalc()
   {
     return this->Walc;
+  }
+  int getAttendance()
+  {
+    return this->Attendance;
   }
   int getGrade()
   {
@@ -25,6 +30,10 @@ public:
   void setWalc(int Walc)
   {
     this->Walc = Walc;
+  }
+  void setAttendance(int Attendance)
+  {
+    this->Attendance = Attendance;
   }
   void setGrade(int Grade)
   {
