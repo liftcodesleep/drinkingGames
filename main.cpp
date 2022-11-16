@@ -1,9 +1,7 @@
 #include "fstream"
-#include "vector"
 #include "sstream"
-#include "student.cpp"
 #include "iomanip"
-#include "iostream"
+#include "./Stats.h"
 
 std::vector<Student> parse(std::ifstream &file)
 {
@@ -61,8 +59,36 @@ void debugPrint(std::vector<Student> students)
 
 int main()
 {
-  std::ifstream file1("archive/student-mat.csv");
-  std::ifstream file2("archive/student-por.csv");
-  debugPrint(parse(file1));
-  debugPrint(parse(file2));
+    std::ifstream file1("archive/student-mat.csv");
+    std::ifstream file2("archive/student-por.csv");
+    std::vector<Student> matStudents = parse(file1);
+    std::vector<Student> porStudents = parse(file2);
+
+    debugPrint(matStudents);
+    debugPrint(porStudents);
+    std::cout << "\n\n\n";
+
+    // averages
+    double mathGradeAverage = Stats::gradeAverage(matStudents, 0, 0);
+    int mathDAlcAvg = Stats::dAlcAverage(matStudents);
+    int mathWAlcAvg = Stats::wAlcAverage(matStudents);
+    double mathAlcGradeAverage = Stats::gradeAverage(matStudents, mathDAlcAvg, mathWAlcAvg);
+
+    // calc and output math grade
+    int mathGrades[20] = { 0 };
+    Stats::countStudentGrades(matStudents, mathGrades, 0, 0);
+    std::cout << "::Math class grades::" << std::endl;
+    std::cout << std::fixed << std::setprecision(2)  << "-Average grade: " << mathGradeAverage << std::endl;
+    Stats::printHistogram(mathGrades, 20, "Num of Students", "Grades");
+
+    std::cout << "\n\n\n";
+
+    // calc and output math grades of students who drink above average days of the class
+    int alcAvgMathGrades[20] = { 0 };
+    Stats::countStudentGrades(matStudents, alcAvgMathGrades, mathDAlcAvg, mathWAlcAvg);
+    std::cout << "::Above average alcohol consumption student grades::" << std::endl;
+    std::cout << std::setprecision(2)  << "-Average grade: " << mathAlcGradeAverage << std::endl;
+    Stats::printHistogram(alcAvgMathGrades, 20, "Num of Students", "Grades");
+
+
 }
