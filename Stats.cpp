@@ -50,9 +50,7 @@ double Stats::gradeAverage(const std::vector<Student>& students, int dAlc, int w
             numOfStudents++;
         }
     }
-    std::cout << "total grade: " << count << std::endl;
-    std::cout << "num students: " << numOfStudents << std::endl;
-
+    
     return count / numOfStudents;
 }
 
