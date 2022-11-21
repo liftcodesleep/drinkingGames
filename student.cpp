@@ -7,6 +7,11 @@ private:
   int Grade = 0;
 
 public:
+  Student() {}
+  
+  Student(int dalc, int walc, int att , int grade): 
+    Dalc(dalc), Walc(walc), Attendance(att), Grade(grade) {}
+
   int getDalc()
   {
     return this->Dalc;

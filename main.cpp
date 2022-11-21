@@ -1,7 +1,7 @@
 #include "fstream"
 #include "sstream"
 #include "iomanip"
-#include "./Stats.h"
+#include "UnitTests.h"
 
 std::vector<Student> parse(std::ifstream &file)
 {
