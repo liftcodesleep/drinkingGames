@@ -34,18 +34,43 @@ int Stats::attendanceAverage(const std::vector<Student>& students) {
 
     for (auto student : students) {
         count += student.getAttendance();
+        numStudents++;
     }
 
     return count / numStudents;
 }
 
 
-double Stats::gradeAverage(const std::vector<Student>& students, int dAlc, int wAlc) {
+double Stats::gradeAverageByAlc(const std::vector<Student>& students, int dAlc, int wAlc) {
+    double count = 0.0;
+    double numOfStudents = 0.0;
+
+    if (dAlc == 0 && wAlc == 0) {
+        for (auto student : students) {
+            count += student.getGrade();
+            numOfStudents++;
+        }
+    }
+    else {
+        for (auto student : students) {
+            if (student.getDalc() > dAlc && student.getWalc() > wAlc) {
+                count += student.getGrade();
+                numOfStudents++;
+            }
+        }
+    }
+
+     
+    return count / numOfStudents;
+}
+
+
+double Stats::gradeAverageByAtt(const std::vector<Student>& students,  int attAvg) {
     double count = 0.0;
     double numOfStudents = 0.0;
 
     for (auto student : students) {
-        if (student.getDalc() > dAlc && student.getWalc() > wAlc) {
+        if (student.getAttendance() > attAvg) {
             count += student.getGrade();
             numOfStudents++;
         }
@@ -116,7 +141,7 @@ void Stats::printHistogram(int stats[], int size, std::string yAxis, std::string
     printWhitespace(6);
     for (int i = 0; i < size; i++) {
         std::cout.width(2);
-        std::cout << std::right << i+1 << "   ";
+        std::cout << std::right << i << "   ";
     }
 
     // add x-axis label
@@ -126,20 +151,44 @@ void Stats::printHistogram(int stats[], int size, std::string yAxis, std::string
 }
 
 
-void Stats::countStudentGrades(
-        const std::vector<Student>& students,
-        int grades[],
-        int dAlcFilter,
-        int wAlcFilter) {
+void Stats::countGradesByAlc(
+    const std::vector<Student>& students,
+    int grades[],
+    int dAlcFilter,
+    int wAlcFilter
+        ) {
 
-    for (auto student : students) {
-        int dAlc = student.getDalc();
-        int wAlc = student.getWalc();
+        for (auto student : students) {
+            int dAlc = student.getDalc();
+            int wAlc = student.getWalc();
 
-        if (dAlc > dAlcFilter && wAlc > wAlcFilter) {
-            grades[student.getGrade()]++;
+            if (dAlc > dAlcFilter && wAlc > wAlcFilter) {
+                grades[student.getGrade()]++;
+            }
         }
+}
+
+void Stats::countGradesByAtt(
+    const std::vector<Student>& students, 
+    int grades[], 
+    int attAvg
+    ) {
+
+        for (auto student : students) {
+            if (student.getAttendance() > attAvg) {
+                grades[student.getGrade()]++;
+            }
+        }
+}
+
+
+int Stats::studentCount(int grades[]) {
+    int count = 0;
+    for (int i = 0; i < 20; i++) {
+        count += grades[i];
     }
+
+    return count;
 }
 
 

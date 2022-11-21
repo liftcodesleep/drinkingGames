@@ -59,36 +59,94 @@ void debugPrint(std::vector<Student> students)
 
 int main()
 {
-    std::ifstream file1("archive/student-mat.csv");
-    std::ifstream file2("archive/student-por.csv");
-    std::vector<Student> matStudents = parse(file1);
-    std::vector<Student> porStudents = parse(file2);
+  // open and read files
+  std::ifstream file1("archive/student-mat.csv");
+  std::ifstream file2("archive/student-por.csv");
+  std::vector<Student> matStudents = parse(file1);
+  std::vector<Student> porStudents = parse(file2);
 
-    debugPrint(matStudents);
-    debugPrint(porStudents);
-    std::cout << "\n\n\n";
+  // math averages
+  double mathGradeAverage = Stats::gradeAverageByAlc(matStudents, 0, 0);
+  int mathDAlcAvg = Stats::dAlcAverage(matStudents);
+  int mathWAlcAvg = Stats::wAlcAverage(matStudents);
+  int mathAttAvg = Stats::attendanceAverage(matStudents);
+  double mathAlcGradeAverage = Stats::gradeAverageByAlc(matStudents, mathDAlcAvg, mathWAlcAvg);
+  double mathAttGradeAverage = Stats::gradeAverageByAtt(matStudents, mathAttAvg);
+  
 
-    // averages
-    double mathGradeAverage = Stats::gradeAverage(matStudents, 0, 0);
-    int mathDAlcAvg = Stats::dAlcAverage(matStudents);
-    int mathWAlcAvg = Stats::wAlcAverage(matStudents);
-    double mathAlcGradeAverage = Stats::gradeAverage(matStudents, mathDAlcAvg, mathWAlcAvg);
+  // portuguese averages
+  double portGradeAverage = Stats::gradeAverageByAlc(porStudents, 0, 0);
+  int portDAlcAvg = Stats::dAlcAverage(porStudents);
+  int portWAlcAvg = Stats::wAlcAverage(porStudents);
+  int portAttAvg = Stats::attendanceAverage(porStudents);
+  double portAlcGradeAverage = Stats::gradeAverageByAlc(porStudents, portDAlcAvg, portWAlcAvg);
+  double portAttGradeAverage = Stats::gradeAverageByAtt(porStudents, portAttAvg);
 
-    // calc and output math grade
-    int mathGrades[20] = { 0 };
-    Stats::countStudentGrades(matStudents, mathGrades, 0, 0);
-    std::cout << "::Math class grades::" << std::endl;
-    std::cout << std::fixed << std::setprecision(2)  << "-Average grade: " << mathGradeAverage << std::endl;
-    Stats::printHistogram(mathGrades, 20, "Num of Students", "Grades");
+  // calc and output math grade
+  int mathGrades[20] = { 0 };
+  Stats::countGradesByAlc(matStudents, mathGrades, 0, 0);
+  std::cout << "::Math class grades::" << std::endl;
+  std::cout << "-Sample size: " << Stats::studentCount(mathGrades) << std::endl;
+  std::cout << std::fixed << std::setprecision(2)  << "-Average grade: " << mathGradeAverage << std::endl;
+  Stats::printHistogram(mathGrades, 20, "Num of Students", "Grades");
 
-    std::cout << "\n\n\n";
+  std::cout << "\n\n\n";
 
-    // calc and output math grades of students who drink above average days of the class
-    int alcAvgMathGrades[20] = { 0 };
-    Stats::countStudentGrades(matStudents, alcAvgMathGrades, mathDAlcAvg, mathWAlcAvg);
-    std::cout << "::Above average alcohol consumption student grades::" << std::endl;
-    std::cout << std::setprecision(2)  << "-Average grade: " << mathAlcGradeAverage << std::endl;
-    Stats::printHistogram(alcAvgMathGrades, 20, "Num of Students", "Grades");
+  // calc and output portuguese grades
+  int portGrades[20] = { 0 };
+  Stats::countGradesByAlc(porStudents, portGrades, 0, 0);
+  std::cout << "::Portuguese class grades::" << std::endl;
+  std::cout << "-Sample size: " << Stats::studentCount(portGrades) << std::endl;
+  std::cout << std::fixed << std::setprecision(2)  << "-Average grade: " << portGradeAverage << std::endl;
+  Stats::printHistogram(portGrades, 20, "Num of Students", "Grades");
 
+  std::cout << "\n\n\n";
 
+  // calc and output math grades of students who drink above class average
+  int alcAvgMathGrades[20] = { 0 };
+  Stats::countGradesByAlc(matStudents, alcAvgMathGrades, mathDAlcAvg, mathWAlcAvg);
+  std::cout << "::Above average alcohol consumption Math student grades::" << std::endl;
+  std::cout << "-Sample size: " << Stats::studentCount(alcAvgMathGrades) << std::endl;
+  std::cout << std::fixed << std::setprecision(2)  << "-Class Average: " << mathGradeAverage << std::endl;
+  std::cout << std::setprecision(2)  << "-Average grade: " << mathAlcGradeAverage << std::endl;
+  Stats::printHistogram(alcAvgMathGrades, 20, "Num of Students", "Grades");
+
+  std::cout << "\n\n\n";
+
+  // calc and output portuguese grades of students who drink above class average
+  int alcAvgPortGrades[20] = { 0 };
+  Stats::countGradesByAlc(porStudents, alcAvgPortGrades, portDAlcAvg, portWAlcAvg);
+  std::cout << "::Above average alcohol consumption Portuguese student grades::" << std::endl;
+  std::cout << "-Sample size: " << Stats::studentCount(alcAvgPortGrades) << std::endl;
+  std::cout << std::fixed << std::setprecision(2)  << "-Class Average: " << portGradeAverage << std::endl;
+  std::cout << std::setprecision(2)  << "-Average grade: " << portAlcGradeAverage << std::endl;
+  Stats::printHistogram(alcAvgPortGrades, 20, "Num of Students", "Grades");
+
+  std::cout << "\n\n\n";
+
+  // calc and output math grades of students who miss more than average amount of days
+  int attAvgMathGrades[20] = { 0 };
+  Stats::countGradesByAtt(matStudents, attAvgMathGrades, mathAttAvg);
+  std::cout << "::Below average attendance Math student grades::" << std::endl;
+  std::cout << "-Sample size: " << Stats::studentCount(attAvgMathGrades) << std::endl;
+  std::cout << "-Average # skipped classes: " << mathAttAvg << std::endl;
+  std::cout << std::fixed << std::setprecision(2)  << "-Class Average: " << mathGradeAverage << std::endl;
+  std::cout << std::setprecision(2)  << "-Average grade: " << mathAttGradeAverage << std::endl;
+  Stats::printHistogram(attAvgMathGrades, 20, "Num of Students", "Grades");
+
+  std::cout << "\n\n\n";
+
+  // calc and output portuguese grades of students who miss more than average amount of days
+  int attAvgPortGrades[20] = { 0 };
+  Stats::countGradesByAtt(porStudents, attAvgPortGrades, portAttAvg);
+  std::cout << "::Below average attendance Portuguese student grades::" << std::endl;
+  std::cout << "-Sample size: " << Stats::studentCount(attAvgPortGrades) << std::endl;
+  std::cout << "-Average # skipped classes: " << portAttAvg << std::endl;
+  std::cout << std::fixed << std::setprecision(2)  << "-Class Average: " << portGradeAverage << std::endl;
+  std::cout << std::setprecision(2)  << "-Average grade: " << portAttGradeAverage << std::endl;
+  Stats::printHistogram(attAvgPortGrades, 20, "Num of Students", "Grades");
+
+  std::cout << "\n\n\n";
+
+  return 0;
 }

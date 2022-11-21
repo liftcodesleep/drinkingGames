@@ -17,14 +17,25 @@ public:
 
     // calculates average student grade
     // can filter by daly/weekly alcohol consumption
-    static double gradeAverage(const std::vector<Student>& students,  int dAlc, int wAlc);
+    static double gradeAverageByAlc(const std::vector<Student>& students,  int dAlc, int wAlc);
+
+    // calculates average student grade     
+    // can filter by attendance
+    static double gradeAverageByAtt(const std::vector<Student>& students,  int attAvg);
 
     // counts the number of students with grades 1-20 and populates grades arr
     // can filter and count grades by daly/weekly alcohol consumption
-    static void countStudentGrades(const std::vector<Student>& students, int grades[], int dAlcFilter, int wAlcFilter);
+    static void countGradesByAlc(const std::vector<Student>& students, int grades[], int dAlcFilter, int wAlcFilter);
+
+    // counts the number of students with grades 1-20 and populates grades arr
+    // can filter and count grades by number of missed days
+    static void countGradesByAtt(const std::vector<Student>& students, int grades[], int attAvg);
 
     // output histogram to console with provided axis labels
     static void printHistogram(int stats[], int size, std::string yAxis, std::string xAxis);
+
+    // counts the number of students from grade report 
+    static int studentCount(int grades[]);
 
 private:
     static int greatestValue(int stats[], int size);
